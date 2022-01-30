@@ -2,6 +2,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
+
+/**
+ * @see https://www.baeldung.com/kotlin/junit-5-kotlin
+ */
 // class 는 java와 동일하다
 class TestClass {
 
