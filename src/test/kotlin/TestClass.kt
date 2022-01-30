@@ -29,4 +29,12 @@ class TestClass {
     internal fun usePropertyAccessSyntax_notGetterMethod() {
         assertThat(true).isTrue
     }
+
+    /**
+     * backtick을 이용하면 string을 메서드명으로 사용할 수 있다
+     */
+    @Test
+    internal fun `test backtick identifiers and 한글`() {
+        assertThat(false).isFalse
+    }
 }
