@@ -1,3 +1,4 @@
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -12,5 +13,15 @@ class TestClass {
     fun test() {
         // 문장의 끝에 세미콜론이 없어도 된다
         Assertions.assertFalse(false)
+    }
+
+    /**
+     * TODO 메소드명 prefix에 test가 없어도 되나?
+     * TODO internal이 private 인가?
+     * TODO 경고: Use of getter method instead of property access syntax
+     */
+    @Test
+    internal fun assertj() {
+        assertThat(true).isTrue()
     }
 }
