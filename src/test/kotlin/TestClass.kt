@@ -18,10 +18,15 @@ class TestClass {
     /**
      * TODO 메소드명 prefix에 test가 없어도 되나?
      * TODO internal이 private 인가?
-     * TODO 경고: Use of getter method instead of property access syntax
+     * 경고: Use of getter method instead of property access syntax
      */
     @Test
     internal fun assertj() {
         assertThat(true).isTrue()
+    }
+
+    @Test
+    internal fun usePropertyAccessSyntax_notGetterMethod() {
+        assertThat(true).isTrue
     }
 }
