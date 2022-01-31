@@ -25,4 +25,10 @@ class FactorialFPTest {
     internal fun `test bigDecimal`(n: BigDecimal, result: BigDecimal) {
         Assertions.assertThat(factorial.calc(n)).isEqualTo(result)
     }
+
+    @Test
+    internal fun stackoverflow() {
+        Assertions.assertThatThrownBy { factorial.calc(10000) }
+            .isInstanceOf(StackOverflowError::class.java)
+    }
 }
