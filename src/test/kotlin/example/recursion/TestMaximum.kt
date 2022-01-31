@@ -8,7 +8,6 @@ class TestMaximum {
     private fun List<Int>.tail() = drop(1)
 
     private fun maximum1(items: List<Int>): Int {
-        println(items)
         val result: Int = when {
             items.isEmpty() -> error("items is empty")
             items.size == 1 -> items.first()
@@ -20,7 +19,6 @@ class TestMaximum {
     }
 
     private fun maximum2(items: List<Int>): Int {
-        println(items)
         val result: Int = when {
             items.isEmpty() -> error("items is empty")
             items.size == 1 -> items.first()
@@ -40,6 +38,5 @@ class TestMaximum {
 
         assertThat(maximum1(listOf(1))).isEqualTo(1)
         assertThat(maximum2(listOf(1, 3, 2, 8, 4))).isEqualTo(8)
-
     }
 }
