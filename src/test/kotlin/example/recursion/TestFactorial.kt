@@ -9,13 +9,17 @@ import java.math.BigDecimal
 
 class TestFactorial {
     var counter = 0
+    var memo = Array(100, { BigDecimal(-1) })
 
     private fun factorial(n: BigDecimal): BigDecimal {
+        val index = n.toInt()
         val result = when {
             n <= BigDecimal.ONE -> BigDecimal.ONE
+            memo[index] != BigDecimal(-1) -> memo[index]
             else -> {
                 counter++
-                n * factorial(n - BigDecimal.ONE)
+                memo[index] = n * factorial(n - BigDecimal.ONE)
+                memo[index]
             }
         }
         return result
@@ -30,7 +34,7 @@ class TestFactorial {
     }
 
     @ParameterizedTest
-    @MethodSource("linearRecursionSource")
+    @MethodSource("memoizationRecursionSource")
     internal fun counter(n: Int, count: Int) {
         assertThat(counter).isEqualTo(0)
         factorial(BigDecimal(n))
@@ -41,6 +45,14 @@ class TestFactorial {
         @JvmStatic
         fun linearRecursionSource() = listOf(
             // factorial 은 n의 1승이니 선형적으로 증가한다?
+            Arguments.of(10, 9),
+            Arguments.of(11, 10),
+            Arguments.of(50, 49),
+        )
+
+        @JvmStatic
+        fun memoizationRecursionSource() = listOf(
+            // memo를 사용해도 횟수는 동일하다
             Arguments.of(10, 9),
             Arguments.of(11, 10),
             Arguments.of(50, 49),
