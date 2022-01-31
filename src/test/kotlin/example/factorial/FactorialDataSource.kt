@@ -24,7 +24,8 @@ class FactorialDataSource {
                             "64000000000000000000000000"
                 )
             ),
-            // stackoverflow, 10000, 100000
+            // stackoverflow
+//            Arguments.of(BigDecimal("10000"), BigDecimal("24")),
 //            Arguments.of(BigDecimal("100000"), BigDecimal("24")),
         )
     }
