@@ -46,7 +46,10 @@ class TestCompose {
 
     private tailrec fun gcd(left: Int, right: Int): Int = when {
         right == 0 -> left
-        else -> gcd(right, right % left)
+        else -> {
+//            println("($right, $right % $left = " + (right % left) + ")")
+            gcd(right, right % left)
+        }
     }
 
     @Test
@@ -58,5 +61,29 @@ class TestCompose {
         val gcdPowerOfTwo = { left: Int, right: Int -> gcd(powerOfTwo(left), powerOfTwo(right)) }
         assertThat(gcdPowerOfTwo(2, 3)).isEqualTo(1)
         assertThat(gcdPowerOfTwo(4, 6)).isEqualTo(4)
+    }
+
+    private fun <P1, P2, R> ((P1, P2) -> R).curried()
+            : (P1) -> (P2) -> R =
+        { p1: P1 -> { p2: P2 -> this(p1, p2) } }
+
+    @Test
+    internal fun `failed - power and gcd with currying`() {
+        val powerOfTwo = { x: Int -> power(x.toDouble(), 2).toInt() }
+        val curriedGcd = ::gcd.curried()
+        val composed = curriedGcd compose powerOfTwo
+        assertThat(composed(2)(3)).isEqualTo(3)
+        assertThat(composed(4)(6)).isEqualTo(6)
+        assertThat(composed(25)(5)).isEqualTo(5)
+    }
+
+    @Test
+    internal fun `fixed - power and gcd with currying`() {
+        val powerOfTwo = { x: Int -> power(x.toDouble(), 2).toInt() }
+        val curriedGcd = { left: Int, right: Int -> gcd(left, powerOfTwo(right)) }.curried()
+        val composed = curriedGcd compose powerOfTwo
+        assertThat(composed(2)(3)).isEqualTo(1)
+        assertThat(composed(4)(6)).isEqualTo(4)
+        assertThat(composed(25)(5)).isEqualTo(25)
     }
 }
