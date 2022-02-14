@@ -9,6 +9,7 @@ class TestJavaInterface {
     internal fun test() {
         val impl = JavaInterfaceImpl()
         assertThat(impl.call()).isEqualTo("kotlin implement java interface")
+        assertThat(impl is JavaInterface).isTrue
     }
 
     class JavaInterfaceImpl : JavaInterface {
